@@ -1,7 +1,7 @@
 // adapted sketch by niq_ro from http://www.tehnic.go.ro
 // http://arduinotehniq.blogspot.com
 // http://nicuflorica.blogspot.ro/
-// vers. 1m0 - 02.07.2015 - Craiova, Romania
+// vers. 1m1 - 02.07.2015 - Craiova, Romania
 
 // Example testing sketch for various DHT humidity/temperature sensors
 // Written by ladyada, public domain
@@ -256,6 +256,10 @@ pinMode(A0,INPUT);//push button on encoder connected to A0 (and GND)
 digitalWrite(A0,HIGH); //Pull A0 high
 
 
+Serial.begin(9600);
+ Serial.println("test for niq_ro");
+ Serial.println("------------------");
+
 }
 
 void loop()
@@ -321,45 +325,79 @@ for(int j=0; j<250; j++){
        };
 }
 
-for(int j=0; j<10; j++){
 DateTime now = RTC.now();
 int ora0 = now.hour();
 int minut0 = now.minute();
 int second0 = now.second();
-/*
-// serial monitor
-  Serial.print(now.hour(), DEC);
-  Serial.print(":");
-  Serial.print(now.minute(), DEC);
-  Serial.print(":");
-  Serial.print(now.second(), DEC);
-  Serial.print(" -> ");
-  Serial.print(ora1);
-  Serial.println(":");
-  Serial.print(minut1);
-  Serial.print(":");
-  Serial.print(second1);
-  Serial.println("------------------");
-*/
+
+int ora7 = ora0;
+int minut7 = minut0;
+int second7 = second0;
+
 //ktmCommand(_ClearDsp);
 ora (ora0, minut0, second0);
 
+//int ora7, minut7, second7;
+
+for(int j=0; j<10; j++)
+{
+DateTime now = RTC.now();
+int ora0 = now.hour();
+int minut0 = now.minute();
+int second0 = now.second();
+
+//ktmCommand(_ClearDsp);
+//ora (ora0, minut0, second0);
+
+
 delay(500);
-/*
-if (ora7 =! ora0) orah(ora0);
-if (minut7 =! minut0) oram(minut0);
-if (second7 =! second0) oras(second0);
+
+// serial monitor
+  Serial.print(now.hour(), DEC);
+  Serial.print(" = ");
+  Serial.print(ora0);
+  Serial.print(" = ");
+  Serial.print(ora7);
+  Serial.println(" ? ");
+  
+  Serial.print(now.minute(), DEC);
+  Serial.print(" = ");
+  Serial.print(minut0);
+  Serial.print(" = ");
+  Serial.print(minut7);
+  Serial.println(" ? ");
+  
+  Serial.print(now.second(), DEC);
+  Serial.print(" = ");
+  Serial.print(second0);
+  Serial.print(" = ");
+  Serial.print(second7);
+  Serial.println(" ? ");
+  Serial.println(" ------------------- ");
+
+if (ora7 != ora0) orah(now.hour());
+if (minut7 != minut0) oram(now.minute());
+if (second7 != second0) oras(now.second());
+
 
 ora7 = ora0;
 minut7 = minut0;
 second7 = second0;
-*/
+  Serial.print(ora7);
+  Serial.print(":");
+    Serial.print(minut7);
+    Serial.print(":");
+      Serial.println(second7);
+
 
     pushlength = pushlengthset;
     pushlength = getpushlength ();
     delay (10);
     if (pushlength <pushlengthset) {
       ShortPush ();   
+ora7 = 0;
+minut7 = 0;
+second7 = 0;
     }
        //This runs the setclock routine if the knob is pushed for a long time
        if (pushlength >pushlengthset) {
@@ -416,7 +454,7 @@ void orah (int ora1)
 //  ktmInit(); // Runs inital reset and prepares the display for commands. 
 //  ktmCommand(_NoBlink);  // Optional _SBlink to blink display. 
 //  ktmCommand(_DispOn);   // Turn on display
-//  ktmCommand(_NoDecode); 
+  ktmCommand(_NoDecode); 
 //  ktmCommand(_ClearDsp); 
 
 //ktmWriteString("    -  -");
@@ -431,11 +469,11 @@ void oram (int minut1)
 //  ktmInit(); // Runs inital reset and prepares the display for commands. 
 //  ktmCommand(_NoBlink);  // Optional _SBlink to blink display. 
 //  ktmCommand(_DispOn);   // Turn on display
-//  ktmCommand(_NoDecode); 
+  ktmCommand(_NoDecode); 
 //  ktmCommand(_ClearDsp); 
 
 //ktmWriteString("    -  -");
-if (minut1 <10) ktmPrnNumb(0,6,0,1); 
+//if (minut1 <10) ktmPrnNumb(0,6,0,1); 
 ktmPrnNumb(minut1,5,0,2); 
 delay(300);
 }
@@ -446,12 +484,12 @@ void oras (int second1)
 //  ktmInit(); // Runs inital reset and prepares the display for commands. 
 //  ktmCommand(_NoBlink);  // Optional _SBlink to blink display. 
 //  ktmCommand(_DispOn);   // Turn on display
-//  ktmCommand(_NoDecode); 
+  ktmCommand(_NoDecode); 
 //  ktmCommand(_ClearDsp); 
 
-ktmWriteString("    -  -");
+//ktmWriteString("    -  -");
 //ktmPrnNumb(umidit,3,0,2); 
-if (second1 <10) ktmPrnNumb(0,3,0,1); 
+//if (second1 <10) ktmPrnNumb(0,3,0,1); 
 ktmPrnNumb(second1,2,0,2); 
 delay(300);
 }
@@ -506,6 +544,14 @@ ktmCommand(_NoDecode);
 ktmCommand(_ClearDsp);
    
    RTC.adjust(DateTime(setyeartemp,setmonthtemp,setdaytemp,sethourstemp,setminstemp,setsecs));
+
+DateTime now = RTC.now();
+int ora0 = now.hour();
+int minut0 = now.minute();
+int second0 = now.second();
+
+//ktmCommand(_ClearDsp);
+ora (ora0, minut0, second0);
 
    delay (500);
    
@@ -727,6 +773,14 @@ data (ziua0, luna0, anul0);
 */
        //This runs the setclock routine if the knob is pushed for a long time
  delay (2000);
+ ktmCommand(_ClearDsp);
+// DateTime now = RTC.now();
+int ora0 = now.hour();
+int minut0 = now.minute();
+int second0 = now.second();
+
+ora (ora0, minut0, second0);
+
 //}
 //print2display("        "); 
 //delay(250);
