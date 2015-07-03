@@ -58,7 +58,7 @@
 #define _ 0x0     // Space
 #define _A  0x77  //
 #define _B  0xF4  //
-//#define _C  0xE0  //
+//#define _C  0xE0  //      changed by niq_ro
 #define _C  0xD1  //
 #define _D  0xE6  //
 #define _E  0xF1  //
@@ -81,7 +81,8 @@
 #define _V  0xD6  //
 #define _W  0xF6  //
 #define _X  0x56  //
-#define _Y  0x72  //
+//#define _Y  0x72  //
+#define _Y  0xB6  //     changed by niq_ro
 #define _Z  0xEB  //
 #define _1  0x06  //
 #define _2  0xE3  //
