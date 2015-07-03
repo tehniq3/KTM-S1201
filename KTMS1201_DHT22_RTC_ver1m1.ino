@@ -395,6 +395,9 @@ second7 = second0;
     delay (10);
     if (pushlength <pushlengthset) {
       ShortPush ();   
+ora7 = 0;
+minut7 = 0;
+second7 = 0;
     }
        //This runs the setclock routine if the knob is pushed for a long time
        if (pushlength >pushlengthset) {
@@ -541,6 +544,14 @@ ktmCommand(_NoDecode);
 ktmCommand(_ClearDsp);
    
    RTC.adjust(DateTime(setyeartemp,setmonthtemp,setdaytemp,sethourstemp,setminstemp,setsecs));
+
+DateTime now = RTC.now();
+int ora0 = now.hour();
+int minut0 = now.minute();
+int second0 = now.second();
+
+//ktmCommand(_ClearDsp);
+ora (ora0, minut0, second0);
 
    delay (500);
    
@@ -762,9 +773,16 @@ data (ziua0, luna0, anul0);
 */
        //This runs the setclock routine if the knob is pushed for a long time
  delay (2000);
+ ktmCommand(_ClearDsp);
+// DateTime now = RTC.now();
+int ora0 = now.hour();
+int minut0 = now.minute();
+int second0 = now.second();
+
+ora (ora0, minut0, second0);
+
 //}
 //print2display("        "); 
 //delay(250);
 }
-
 
